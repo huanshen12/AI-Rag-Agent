@@ -36,24 +36,24 @@
 
 ```mermaid
 graph TD
-    User(用户) -->|Web UI| Streamlit
-    Streamlit -->|Stream| AgentCore[ReAct Agent / LangGraph]
+    User("用户") -->|Web UI| Streamlit
+    Streamlit -->|Stream| AgentCore["ReAct Agent / LangGraph"]
     
     subgraph "Agent Brain"
-        AgentCore -->|Decision| Router{决策路由}
-        Router -->|Need Info?| RAG[RAG 检索工具]
-        Router -->|Need Tool?| Tools[外部 API (天气/查询)]
-        Router -->|Chat| LLM[DeepSeek / OpenAI]
+        AgentCore -->|Decision| Router{"决策路由"}
+        Router -->|Need Info?| RAG["RAG 检索工具"]
+        Router -->|Need Tool?| Tools["外部 API (天气/查询)"]
+        Router -->|Chat| LLM["DeepSeek / OpenAI"]
     end
     
     subgraph "Knowledge Base"
-        PDF[(企业文档)] -->|Loader| VectorDB[(Chroma 向量库)]
+        PDF[("企业文档")] -->|Loader| VectorDB[("Chroma 向量库")]
         RAG <--> VectorDB
     end
     
     subgraph "Memory & Logs"
-        AgentCore <--> History[(JSON 会话历史)]
-        AgentCore -.->|Trace| LangSmith(LangSmith 监控)
+        AgentCore <--> History[("JSON 会话历史")]
+        AgentCore -.->|Trace| LangSmith("LangSmith 监控")
     end
  ```
 ## 📸 运行演示 (Screenshots)
