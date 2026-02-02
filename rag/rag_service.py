@@ -3,6 +3,7 @@ from utils.prompt_loader import load_rag_prompts
 from langchain_core.prompts import PromptTemplate
 from model.factory import chat_model
 from langchain_core.output_parsers import StrOutputParser
+from utils.logger_handler import logger
 
 def prompt_print(prompt:str):
     print("="*20)
@@ -14,6 +15,8 @@ def prompt_print(prompt:str):
 class rag_service():
     def __init__(self):
         self.vector_store = vector_store_service()
+        logger.info("正在加载文档...")
+        self.vector_store.load_documents([])
         self.retriever = self.vector_store.get_retriever()
         self.prompt_text = load_rag_prompts()
         self.prompt_template = PromptTemplate.from_template(self.prompt_text)
