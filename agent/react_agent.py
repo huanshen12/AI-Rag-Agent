@@ -29,15 +29,18 @@ get_user_location,get_weather,fetch_external_data,fill_context_for_report],
             "messages":input_messages
         }
         full_response = ""
+        latest_message = ""
+        message_tosave = None
         try:
             for chunk in self.agent.stream(input_dict,stream_mode="values",context = {"report":False}):
                 latest_message = chunk["messages"][-1]
                 if latest_message.type == "ai" and latest_message.content:
                     full_response = latest_message.content
+                    message_tosave = latest_message
                     yield latest_message.content.strip() + "\n"    
         except Exception as e:
             yield f"发生错误，请稍后重试{str(e)}"
 
-        if full_response:
+        if full_response and message_tosave:
             logger.info("正在保存对话...")
-            chat_history.add_messages([HumanMessage(content=query),latest_message])
+            chat_history.add_messages([HumanMessage(content=query),message_tosave])
