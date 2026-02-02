@@ -5,3 +5,4 @@ __pycache__/
 chroma_db/
 md5.txt
 logs/
+history_storage/

@@ -5,6 +5,8 @@ import time
 st.title("智能扫地机器人客服")
 st.divider()
 
+if "session_id" not in st.session_state:
+    st.session_state.session_id = "user_001"
 if "agent" not in st.session_state:
     st.session_state.agent = react_agent()
 
@@ -20,17 +22,15 @@ prompt = st.chat_input("请输入您的问题")
 if prompt:
     st.chat_message("user").write(prompt)
     st.session_state.messages.append({"role":"user","content":prompt})
-    response = []
-    def generate(generator,file):
+    def generate(generator):
         for chunk in generator:
-            file.append(chunk)
             for a in chunk:
                 time.sleep(0.01)
                 yield a
     with st.spinner("思考中..."):
-        res  = st.session_state.agent.excute_stream(prompt)
-        st.chat_message("assistant").write_stream(generate(res,response))
-    st.session_state.messages.append({"role":"assistant","content":response[-1]})
+        res  = st.session_state.agent.excute_stream(prompt,st.session_state.session_id)
+        result = st.chat_message("assistant").write_stream(generate(res))
+    st.session_state.messages.append({"role":"assistant","content":result})
     st.rerun()
     
 
