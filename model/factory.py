@@ -16,7 +16,7 @@ class base_model_factory(ABC):
 
 class chat_model_factory(base_model_factory):
     def generator(self) -> Optional[BaseChatModel]:
-        return ChatOpenAI(model = rag_conf["chat_model"],api_key = os.getenv("deepseek_api_key"),base_url = os.getenv("deepseek_base_url"))
+        return ChatOpenAI(model = rag_conf["chat_model"],api_key = os.getenv("deepseek_api_key"),base_url = os.getenv("deepseek_base_url"),temperature = 0)
 
 class embedding_model_factory(base_model_factory):
     def generator(self) -> Optional[Embeddings]:

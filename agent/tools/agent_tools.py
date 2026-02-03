@@ -17,7 +17,7 @@ external_data = {}
 @tool
 def rag_summarize(query:str):
     """
-    用于对RAG模型的检索结果进行总结
+    【核心工具】当用户询问关于扫地机器人的安装、设置、故障代码、参数对比或说明书内容时，必须调用此工具。它包含最新的官方技术文档，比你自带的知识更准确。
     """
     return rag.rag_sumarize(query)
 
