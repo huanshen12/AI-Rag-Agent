@@ -4,7 +4,7 @@ import random
 from utils.config_handler import agent_conf
 from utils.path_tool import get_abs_path
 from utils.logger_handler import logger
-
+import asyncio
 
 
 rag = rag_service()
@@ -14,12 +14,12 @@ month_arr = ["2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-0
 external_data = {}
 
 
-@tool
+@tool(return_direct=True)
 def rag_summarize(query:str):
     """
     【核心工具】当用户询问关于扫地机器人的安装、设置、故障代码、参数对比或说明书内容时，必须调用此工具。它包含最新的官方技术文档，比你自带的知识更准确。
     """
-    return rag.rag_sumarize(query)
+    return asyncio.run(rag.rag_sumarize(query))
 
 @tool
 def get_weather(city:str) -> str:
