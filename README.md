@@ -58,13 +58,20 @@ graph TD
  ```
 ## 📸 运行演示 (Screenshots)
 
-1. 智能问答与 RAG 检索
- ![Demo UI](./assets/demo_ui.png)
+1. 智能决策与工具调用 Agent 能够识别“北京天气”意图，自动调用 get_weather 工具，而不是去查文档。
 
-2. LangSmith 全链路追踪
+2. RAG 混合检索与缓存命中 首次查询走数据库检索，第二次相同查询直接命中 Redis 缓存（日志显示 ⚡️ 命中 Redis 缓存），响应速度极快。
+![RAG Cache Hit](./assets/rag_cache_hit.png)
+
+3. LangSmith 全链路追踪
  ![LangSmith Trace](./assets/langsmith_trace.png)
 
 ## 🛠️ 快速开始 (Quick Start)
+环境要求
+    Python 3.10+
+
+    Redis Server (运行在本地 6379 端口)
+
 方式一：Docker 一键部署（推荐）
 ```Bash
 # 1. 构建镜像
@@ -91,7 +98,9 @@ deepseek_api_key=sk-xxxx
 dashscope_api_key=sk-xxxx
 LANGCHAIN_API_KEY=lsv2-xxxx (可选，用于 LangSmith)
 ```
-4. 启动应用
+4. 启动 Redis 确保本地 Redis 服务已开启：
+
+5. 启动应用
 
 ```Bash
 streamlit run app.py
