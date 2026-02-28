@@ -73,8 +73,6 @@ Agent 能够精准识别意图，自动调用对应工具，多跳推理过程�
 ### 2. RAG 混合检索与缓存命中
 首次查询走数据库检索，第二次相同查询直接命中 Redis 缓存（日志显示 ⚡️ 命中 Redis 缓存），响应速度极快。
 
-![RAG Cache Hit](./assets/rag_cache_hit.png)
-
 ### 3. LangSmith 全链路追踪
 
 ![LangSmith Trace](./assets/langsmith_trace.png)
