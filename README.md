@@ -66,6 +66,7 @@ graph TD
 ```
 
 ## 📸 运行演示
+![Agent Demo](./assets/demo_ui.png)
 
 ### 1. 智能决策与工具调用
 Agent 能够精准识别意图，自动调用对应工具，多跳推理过程完全透明。
