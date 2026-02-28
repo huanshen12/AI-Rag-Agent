@@ -10,7 +10,9 @@ import redis.asyncio as redis  # 👈 注意：这里用了异步 Redis
 import hashlib
 import json
 import asyncio
-
+import os
+REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
+REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
 def prompt_print(prompt):
     # 调试打印
     print("="*20)
@@ -45,7 +47,7 @@ class rag_service:
         if not self.redis_client:
             try:
                 self.redis_client = redis.Redis(
-                    host='localhost', port=6379, db=0, decode_responses=True
+                    host=REDIS_HOST, port=REDIS_PORT, db=0, decode_responses=True
                 )
                 await self.redis_client.ping()
                 logger.info("✅ Redis (Async) 连接成功")

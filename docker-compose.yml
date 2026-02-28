@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+
+  redis_cache:
+    image: redis:alpine
+    container_name: agent_redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+  ai_agent_web:
+    build: .
+    container_name: agent_web
+    ports:
+      - "8501:8501"
+    environment:
+      - REDIS_HOST=redis_cache
+      - REDIS_PORT=6379
+    env_file:
+      - .env  
+    depends_on:
+      - redis_cache
+    volumes:
+      - ./data:/app/data 
+      - ./chat_history:/app/chat_history
